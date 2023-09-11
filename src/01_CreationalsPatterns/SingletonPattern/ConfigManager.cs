@@ -6,9 +6,14 @@ using System.Threading.Tasks;
 
 namespace SingletonPattern
 {
-    public class ConfigManager
+    public class ConfigManager : LazySingleton<ConfigManager> 
     {
         private readonly Dictionary<string, object> settings = new Dictionary<string, object>();
+
+        public ConfigManager()
+        {
+            
+        }
 
         public void Set(string key, object value)
         {

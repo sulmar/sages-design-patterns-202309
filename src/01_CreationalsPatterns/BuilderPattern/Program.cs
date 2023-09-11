@@ -56,13 +56,12 @@ namespace BuilderPattern
             FakeOrdersService ordersService = new FakeOrdersService();
             IEnumerable<Order> orders = ordersService.Get();
 
-            ISalesReportBuilder salesReportBuilder = new SalesReportBuilder(orders);
-
-            salesReportBuilder.AddHeader("Raport sprzedaży");            
-            salesReportBuilder.AddProductDetailsSection();            
-            salesReportBuilder.AddFooter();
-
-            SalesReport salesReport = salesReportBuilder.Build();
+            // Fluent Api
+            SalesReport salesReport = FluentSalesReportBuilder.Instance(orders)
+                .AddHeader("Raport sprzedaży")
+                .AddProductDetailsSection()          
+                .AddFooter()
+                .Build();            
 
             Console.WriteLine(salesReport);
 

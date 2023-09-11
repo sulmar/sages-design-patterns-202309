@@ -20,7 +20,7 @@ namespace FactoryMethodTemplate
 			this.Latitude = lat;
 		}
 
-        public Coordinate(string wkt)
+        public static Coordinate CoordinateFromWkt(string wkt)
         {
             const string pattern = @"POINT \((\d*)\s(\d*)\)";
 
@@ -33,8 +33,7 @@ namespace FactoryMethodTemplate
                 double lng = double.Parse(match.Groups[1].Value, CultureInfo.InvariantCulture);
                 double lat = double.Parse(match.Groups[2].Value, CultureInfo.InvariantCulture);
 
-                this.Longitude = lng;
-                this.Latitude = lat;
+                return new Coordinate(lng, lat);
             }
             else
             {
@@ -42,31 +41,28 @@ namespace FactoryMethodTemplate
             }
         }
 
-        // Problem - nie może być kilku konstruktorów, które przyjmują taki sam typ
+        public static Coordinate CoordinateFromGeoJson(string geojson)
+        {
+            const string pattern = @"\[(\d*), (\d*)\]";
 
-        //public Coordinate(string geojson)
-        //{
-        //    const string pattern = @"\[(\d*), (\d*)\]";
-
-        //    Regex regex = new Regex(pattern);
+            Regex regex = new Regex(pattern);
 
 
-        //    Match match = regex.Match(geojson);
+            Match match = regex.Match(geojson);
 
-        //    if (match.Success)
-        //    {
+            if (match.Success)
+            {
 
-        //        double lng = double.Parse(match.Groups[1].Value, CultureInfo.InvariantCulture);
-        //        double lat = double.Parse(match.Groups[2].Value, CultureInfo.InvariantCulture);
+                double lng = double.Parse(match.Groups[1].Value, CultureInfo.InvariantCulture);
+                double lat = double.Parse(match.Groups[2].Value, CultureInfo.InvariantCulture);
 
-        //        this.Longitude = lng;
-        //        this.Latitude = lat;
-        //    }
-        //    else
-        //    {
-        //        throw new FormatException();
-        //    }
-        //}
+                return new Coordinate(lng, lat);
+            }
+            else
+            {
+                throw new FormatException();
+            }
+        }
 
 
 

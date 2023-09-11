@@ -14,11 +14,15 @@ namespace MediatorPattern
     {
         public static void Main(string[] args)
         {
-            CreateWebHostBuilder(args).Build().Run();
+            IWebHostBuilder hostBuilder = CreateWebHostBuilder(args);
+
+            IWebHost host = hostBuilder.Build();
+                
+            host.Run();
         }
 
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
-            WebHost.CreateDefaultBuilder(args)
+            WebHost.CreateDefaultBuilder(args)            
                 .UseStartup<Startup>();
     }
 }

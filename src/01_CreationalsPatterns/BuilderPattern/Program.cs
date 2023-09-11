@@ -19,6 +19,23 @@ namespace BuilderPattern
             SalesReportTest();
 
             // PersonTest();
+
+            PdfPresentationBuilder presentationBuilder = new PdfPresentationBuilder();
+
+            Presentation presentation = new Presentation(presentationBuilder);
+            presentation.AddSlide(new Slide("Sages"));
+            presentation.AddSlide(new Slide("Design Pattern in C#"));
+            presentation.AddSlide(new Slide("Creational Design Pattern"));
+            presentation.AddSlide(new Slide("Structural Design Pattern"));
+            presentation.AddSlide(new Slide("Behavioral Design Pattern"));
+
+            presentation.Export();
+
+            var pdf = presentationBuilder.GetPdfDocument();
+            Console.WriteLine(pdf);
+
+
+
         }
 
         private static void PersonTest()
@@ -39,20 +56,13 @@ namespace BuilderPattern
             FakeOrdersService ordersService = new FakeOrdersService();
             IEnumerable<Order> orders = ordersService.Get();
 
-            SalesReport salesReport = new SalesReport();
+            ISalesReportBuilder salesReportBuilder = new SalesReportBuilder(orders);
 
-            // Header
-            salesReport.Title = "Raport sprzedaży";
-            salesReport.CreateDate = DateTime.Now;
-            salesReport.TotalSalesAmount = orders.Sum(s => s.Amount);
+            salesReportBuilder.AddHeader("Raport sprzedaży");            
+            salesReportBuilder.AddProductDetailsSection();            
+            salesReportBuilder.AddFooter();
 
-            // Content          
-            salesReport.ProductDetails = orders
-                .SelectMany(o => o.Details)
-                .GroupBy(o => o.Product)
-                .Select(g => new ProductReportDetail(g.Key, g.Sum(p => p.Quantity), g.Sum(p => p.LineTotal)));
-
-            // Footer
+            SalesReport salesReport = salesReportBuilder.Build();
 
             Console.WriteLine(salesReport);
 

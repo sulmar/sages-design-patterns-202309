@@ -23,7 +23,7 @@ namespace SimpleFactoryPattern
 
             if (kind == "N")
             {
-                cost = 0;
+                cost = decimal.Zero;
             }
             else if (kind == "P")
             {
@@ -32,7 +32,7 @@ namespace SimpleFactoryPattern
             else if (kind == "F")
             {
                 cost = (decimal)Duration.TotalHours * PricePerHour * companyDiscountPercentage;
-            }
+            }            
 
             return cost;
         }

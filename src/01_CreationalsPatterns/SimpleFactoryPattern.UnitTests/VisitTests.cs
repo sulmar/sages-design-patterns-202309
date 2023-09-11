@@ -18,10 +18,10 @@ namespace SimpleFactoryPattern.UnitTests
             TimeSpan duration = TimeSpan.FromMinutes(durationInMinutes);
             decimal pricePerHour = 100;            
 
-            Visit visit = new Visit(duration, pricePerHour);
+            Visit visit = VisitFactory.Create(visitType, duration, pricePerHour);
 
             // Act
-            decimal result = visit.CalculateCost(visitType);
+            decimal result = visit.CalculateCost();
 
             // Asserts
             Assert.AreEqual(expectedCost, result);

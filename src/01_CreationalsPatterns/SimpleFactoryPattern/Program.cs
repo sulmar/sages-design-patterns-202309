@@ -58,14 +58,7 @@ namespace SimpleFactoryPattern
 
         private static string GetIcon(Payment payment)
         {
-            switch (payment.PaymentType)
-            {
-                case PaymentType.Cash: return "[100]";
-                case PaymentType.CreditCard: return "[abc]";
-                case PaymentType.BankTransfer: return "[-->]";
-
-                default: return string.Empty;
-            }
+            return IconPaymentFactory.Create(payment.PaymentType);
         }
 
         private static void VisitCalculateAmountTest()

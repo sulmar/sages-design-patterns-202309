@@ -12,6 +12,8 @@ namespace SimpleFactoryPattern.UnitTests
         [DataRow(120, 200, "P")]
         [DataRow(60, 90, "F")]
         [DataRow(120, 180, "F")]
+        [DataRow(60, 10, "T")]
+        [DataRow(120, 10, "T")]
         public void CalculateCost_VisitType_ShouldReturnsGreatherThanZero(int durationInMinutes, int expectedCost, string visitType)
         {
             // Arrange

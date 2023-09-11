@@ -45,19 +45,39 @@ namespace SimpleFactoryPattern
     }
 
 
+    public class TeleVisit : Visit
+    {
+        public TeleVisit(TimeSpan duration, decimal pricePerHour) : base(duration, pricePerHour)
+        {
+        }
+
+        public override decimal CalculateCost()
+        {
+            return 10;
+        }
+    }
+
+
     // Factory
     public class VisitFactory
     {
         public static Visit Create(string kind, TimeSpan duration, decimal pricePerHour)
         {
-            if (kind == "N")
-                return new NfzVisit(duration, pricePerHour);
-            else if (kind == "P")
-                return new PrivateVisit(duration, pricePerHour);
-            else if (kind == "F")
-                return new CompanyVisit(duration, pricePerHour);
+            switch (kind)
+            {
+                case "N":
+                    return new NfzVisit(duration, pricePerHour);
+                case "P":
+                    return new PrivateVisit(duration, pricePerHour);
+                case "F":
+                    return new CompanyVisit(duration, pricePerHour);
+                case "T":
+                    return new TeleVisit(duration, pricePerHour);
 
-            throw new NotSupportedException();
+                default:
+                    throw new NotSupportedException();
+            }
+            
         }
     }
 
@@ -69,8 +89,6 @@ namespace SimpleFactoryPattern
         public TimeSpan Duration { get; set; }
         public decimal PricePerHour { get; set; }
 
-        
-
         public Visit(TimeSpan duration, decimal pricePerHour)
         {
             VisitDate = DateTime.Now;
@@ -78,6 +96,6 @@ namespace SimpleFactoryPattern
             PricePerHour = pricePerHour;
         }
 
-        public abstract decimal CalculateCost();        
+        public abstract decimal CalculateCost();
     }
 }

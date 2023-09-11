@@ -59,6 +59,7 @@ namespace BuilderPattern
             // Fluent Api
             SalesReport salesReport = FluentSalesReportBuilder.Instance(orders)
                 .AddHeader("Raport sprzedaży")
+                .AddHeader("Raport abc")
                 .AddProductDetailsSection()          
                 .AddFooter()
                 .Build();            

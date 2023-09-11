@@ -1,11 +1,14 @@
 ﻿namespace BuilderPattern
 {
     // Abstract Builder (Fluent Api)
-    public interface IFluentSalesReportBuilder
-    {       
-        SalesReport Build();
+    public interface IFluentSalesReportBuilder : IInstance, IHeader, ISection, IFooter, ISectionOrFooter, IBuild
+    {              
     }
 
+    public interface IBuild
+    {
+        SalesReport Build();
+    }
 
     public interface IInstance
     {

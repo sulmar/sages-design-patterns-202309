@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace BuilderPattern
 {
-    public class FluentSalesReportBuilder : IFluentSalesReportBuilder, IInstance, IHeader, ISection, IFooter, ISectionOrFooter
+    public class FluentSalesReportBuilder : IFluentSalesReportBuilder
     {
         // Product
         private SalesReport salesReport = new SalesReport();

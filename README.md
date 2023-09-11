@@ -14,3 +14,8 @@ To take this course you'll need the following.
 ```
 git clone https://github.com/sulmar/sages-design-patterns-202309
 ```
+
+### Branches
+The repository has 2 branches:
+- master - problematic code
+- solution - code with using design patterns

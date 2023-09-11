@@ -4,19 +4,19 @@ using System.Linq;
 
 namespace BuilderPattern
 {
-    public class FluentSalesReportBuilder : IFluentSalesReportBuilder
+    public class FluentSalesReportBuilder : IFluentSalesReportBuilder, IInstance, IHeader, ISection, IFooter
     {
         // Product
         private SalesReport salesReport = new SalesReport();
 
         private IEnumerable<Order> orders;
 
-        public static IFluentSalesReportBuilder Instance(IEnumerable<Order> orders)
-        {
-            return new FluentSalesReportBuilder(orders);
-        }
+        //public IFluentSalesReportBuilder Instance(IEnumerable<Order> orders)
+        //{
+        //    return new FluentSalesReportBuilder(orders);
+        //}
 
-        private FluentSalesReportBuilder(IEnumerable<Order> orders)
+        public FluentSalesReportBuilder(IEnumerable<Order> orders)
         {
             this.orders = orders;
         }
@@ -27,7 +27,7 @@ namespace BuilderPattern
             return this;
         }
 
-        public IFluentSalesReportBuilder AddHeader(string title)
+        public ISection AddHeader(string title)
         {
             salesReport.Title = title;
             salesReport.CreateDate = DateTime.Now;
@@ -36,7 +36,7 @@ namespace BuilderPattern
             return this;
         }
 
-        public IFluentSalesReportBuilder AddProductDetailsSection()
+        public IFooter AddProductDetailsSection()
         {
             salesReport.ProductDetails = orders
               .SelectMany(o => o.Details)
@@ -51,7 +51,10 @@ namespace BuilderPattern
             return salesReport;
         }
 
-       
+        public IHeader Instance()
+        {
+            return this;
+        }
     }
 
 

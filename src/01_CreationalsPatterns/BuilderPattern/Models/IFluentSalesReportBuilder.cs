@@ -2,12 +2,37 @@
 {
     // Abstract Builder (Fluent Api)
     public interface IFluentSalesReportBuilder
-    {
-        IFluentSalesReportBuilder AddHeader(string title);
-        IFluentSalesReportBuilder AddProductDetailsSection();
-        IFluentSalesReportBuilder AddFooter();
+    {       
         SalesReport Build();
     }
+
+
+    public interface IInstance
+    {
+        IHeader Instance();
+    }
+
+    public interface ISectionOrFooter : ISection, IFooter
+    {
+
+    }
+
+    public interface IHeader
+    {
+        ISectionOrFooter AddHeader(string title);
+    }
+
+    public interface ISection
+    {
+        IFooter AddProductDetailsSection();
+    }
+
+    public interface IFooter
+    {
+        IFluentSalesReportBuilder AddFooter();
+    }
+
+
 
 
 

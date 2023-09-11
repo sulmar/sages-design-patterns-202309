@@ -41,7 +41,7 @@ namespace BuilderPattern
         private static void PersonTest()
         {
             var person = new Person();
-             
+
             person.Name = "Marcin";
             person.Position = "developer";
             person.AddSkill("C#");
@@ -57,12 +57,13 @@ namespace BuilderPattern
             IEnumerable<Order> orders = ordersService.Get();
 
             // Fluent Api
-            SalesReport salesReport = FluentSalesReportBuilder.Instance(orders)
+            IInstance builder = new FluentSalesReportBuilder(orders);
+
+            SalesReport salesReport = builder.Instance()
                 .AddHeader("Raport sprzedaży")
-                .AddHeader("Raport abc")
-                .AddProductDetailsSection()          
+                .AddProductDetailsSection()
                 .AddFooter()
-                .Build();            
+                .Build();
 
             Console.WriteLine(salesReport);
 
@@ -74,7 +75,7 @@ namespace BuilderPattern
             phone.Call("555999123", "555000321", ".NET Design Patterns");
         }
 
-       
+
     }
 
     public class FakeOrdersService

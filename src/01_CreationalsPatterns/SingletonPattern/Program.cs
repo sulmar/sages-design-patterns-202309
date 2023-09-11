@@ -9,28 +9,22 @@ namespace SingletonPattern
         {
             Console.WriteLine("Hello Singleton Pattern!");
 
-            LoggerTest();
+            ConfigManagerTest();
 
             // LoadBalancerTest();
 
             Console.ReadKey();
         }
 
-        private static void LoggerTest()
+        private static void ConfigManagerTest()
         {
-            MessageService messageService = new MessageService();
-            PrintService printService = new PrintService();
-            messageService.Send("Hello World!");
-            printService.Print("Hello World!", 3);
+            ConfigManager manager = new ConfigManager();
+            manager.Set("name", "Marcin");
 
-            if (ReferenceEquals(messageService.logger, printService.logger))
-            {
-                Console.WriteLine("The same instances");
-            }
-            else
-            {
-                Console.WriteLine("Different instances");
-            }
+            ConfigManager other = new ConfigManager();
+            object result = other.Get("name");
+            Console.WriteLine(result);
+
         }
 
         private static void LoadBalancerTest()

@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace BuilderPattern
 {
-    public class FluentSalesReportBuilder : IFluentSalesReportBuilder, IInstance, IHeader, ISection, IFooter
+    public class FluentSalesReportBuilder : IFluentSalesReportBuilder, IInstance, IHeader, ISection, IFooter, ISectionOrFooter
     {
         // Product
         private SalesReport salesReport = new SalesReport();
@@ -27,7 +27,7 @@ namespace BuilderPattern
             return this;
         }
 
-        public ISection AddHeader(string title)
+        public ISectionOrFooter AddHeader(string title)
         {
             salesReport.Title = title;
             salesReport.CreateDate = DateTime.Now;

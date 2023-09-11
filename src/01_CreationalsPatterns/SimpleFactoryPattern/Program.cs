@@ -80,7 +80,9 @@ namespace SimpleFactoryPattern
                 {
                     TimeSpan duration = TimeSpan.FromMinutes(minutes);
 
-                    Visit visit = VisitFactory.Create(visitType, duration, 100);
+                    Visit visit = VisitFactory.Create(visitType);
+                    visit.Duration = duration;
+                    visit.PricePerHour = 100;
 
                     decimal totalAmount = visit.CalculateCost();
 

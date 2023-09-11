@@ -20,7 +20,9 @@ namespace SimpleFactoryPattern.UnitTests
             TimeSpan duration = TimeSpan.FromMinutes(durationInMinutes);
             decimal pricePerHour = 100;            
 
-            Visit visit = VisitFactory.Create(visitType, duration, pricePerHour);
+            Visit visit = VisitFactory.Create(visitType);
+            visit.Duration = duration;
+            visit.PricePerHour = pricePerHour;
 
             // Act
             decimal result = visit.CalculateCost();

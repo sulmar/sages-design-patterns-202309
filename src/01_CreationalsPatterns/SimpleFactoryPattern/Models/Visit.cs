@@ -6,15 +6,13 @@ namespace SimpleFactoryPattern
     // Abstract Product
     public abstract class Visit
     {
-        public DateTime VisitDate { get; set; }
+        public DateTime VisitDate { get; private set; }
         public TimeSpan Duration { get; set; }
         public decimal PricePerHour { get; set; }
 
-        public Visit(TimeSpan duration, decimal pricePerHour)
+        public Visit()
         {
             VisitDate = DateTime.Now;
-            Duration = duration;
-            PricePerHour = pricePerHour;
         }
 
         public abstract decimal CalculateCost();

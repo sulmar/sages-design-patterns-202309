@@ -3,13 +3,13 @@
     // Factory
     public class VisitFactory
     {
-        public static Visit Create(string kind, TimeSpan duration, decimal pricePerHour) 
+        public static Visit Create(string kind) 
             => kind switch // Match Patterns
         {
-            "N" => new NfzVisit(duration, pricePerHour),
-            "P" => new PrivateVisit(duration, pricePerHour),
-            "F" => new CompanyVisit(duration, pricePerHour),
-            "T" => new TeleVisit(duration, pricePerHour),
+            "N" => new NfzVisit(),
+            "P" => new PrivateVisit(),
+            "F" => new CompanyVisit(),
+            "T" => new TeleVisit(),
             _ => throw new NotSupportedException(),
         };
     }

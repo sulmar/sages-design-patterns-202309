@@ -5,4 +5,18 @@
     <TargetFramework>net7.0</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <None Remove="Assets\coffee.png" />
+    <None Remove="Assets\hotel.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Assets\coffee.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\hotel.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
 </Project>

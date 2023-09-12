@@ -6,20 +6,31 @@ namespace FlyweightPattern
     {
         private int x;
         private int y;
-        private PointType type;
-        private byte[] icon;
+        private PointIcon pointIcon;
+       
 
-        public Point(int x, int y, PointType type, byte[] icon)
+        public Point(int x, int y, PointIcon pointIcon)
         {
             this.x = x;
             this.y = y;
-            this.type = type;
-            this.icon = icon;
+            this.pointIcon = pointIcon;
         }
 
         public void Draw()
         {
-            Console.WriteLine($"{type} at ({x}, {y})");
+            Console.WriteLine($"{pointIcon.Type} at ({x}, {y}) {pointIcon.Icon.Length} bytes");
+        }
+    }
+
+    public class PointIcon
+    {
+        public PointType Type { get; set; }
+        public byte[] Icon { get; set; }
+
+        public PointIcon(PointType type, byte[] icon)
+        {
+            this.Type = type;
+            this.Icon = icon;
         }
     }
 

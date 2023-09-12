@@ -6,20 +6,34 @@ using System.Threading.Tasks;
 
 namespace DecoratorPattern
 {
-    public class CloudStream
+    // Abstract
+    public interface Stream
     {
-        public virtual void Write(string data)
+        public void Write(string data);
+    }
+
+
+    public class CloudStream : Stream
+    {
+        public void Write(string data)
         {
             Console.WriteLine($"Storing {data}");
         }
     }
 
-    public class EncryptedCloudStream : CloudStream
+    public class EncryptedCloudStream : Stream
     {
-        public override void Write(string data)
+        private Stream stream;
+
+        public EncryptedCloudStream(Stream stream)
+        {
+            this.stream = stream;
+        }
+
+        public void Write(string data)
         {
             var encrypted = Encrypt(data);
-            base.Write(encrypted);
+            stream.Write(encrypted);
         }
 
         private string Encrypt(string data)
@@ -28,12 +42,19 @@ namespace DecoratorPattern
         }
     }
 
-    public class CompressedCloudStream : CloudStream
+    public class CompressedCloudStream : Stream
     {
-        public override void Write(string data)
+        private Stream stream;
+
+        public CompressedCloudStream(Stream stream)
+        {
+            this.stream = stream;
+        }
+
+        public void Write(string data)
         {
             var compressed = Compress(data);
-            base.Write(compressed);
+            stream.Write(compressed);
         }
 
         private string Compress(string data)
@@ -42,9 +63,6 @@ namespace DecoratorPattern
         }
     }
 
-    public class CompressAndEncryptedCloudStream : CloudStream
-    {
-        
-    }
+   
 
 }

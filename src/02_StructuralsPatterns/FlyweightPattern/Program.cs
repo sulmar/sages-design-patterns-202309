@@ -3,7 +3,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.IO;
 
 namespace FlyweightPattern
 {
@@ -13,7 +12,7 @@ namespace FlyweightPattern
         {
             Console.WriteLine("Hello Flyweight Pattern!");
 
-            PointFactory pointFactory = new PointFactory(new PointIconFactory());
+            PointService pointFactory = new PointService(new PointIconFactory());
 
             var points = pointFactory.Create();
 
@@ -25,53 +24,6 @@ namespace FlyweightPattern
             // Game game = new Game(TreeFactory.Create());
             //
             // game.Play();
-        }
-    }
-
-    public class PointIconFactory
-    {
-        private IDictionary<PointType, PointIcon> icons = new Dictionary<PointType, PointIcon>();
-
-        public PointIcon Create(PointType pointType)
-        {
-            if (!icons.ContainsKey(pointType))
-            {
-                byte[] icon = Get(pointType);
-
-                icons.Add(pointType, new PointIcon(pointType, icon));
-            }
-
-            return icons[pointType];
-
-        }
-       
-        private static byte[] Get(PointType pointType)
-        {
-            string filename = $"Assets/{pointType.ToString().ToLower()}.png";
-            byte[] icon = File.ReadAllBytes(filename);
-            return icon;
-        }
-    }
-
-    public class PointFactory
-    {
-        private PointIconFactory iconFactory;
-
-        public PointFactory(PointIconFactory iconFactory)
-        {
-            this.iconFactory = iconFactory;
-        }
-
-        public ICollection<Point> Create()
-        {           
-            var points = new List<Point>
-            {
-                new Point(1, 2, iconFactory.Create(PointType.Coffee)),
-                new Point(10, 20, iconFactory.Create(PointType.Coffee)),
-                new Point(15, 25,iconFactory.Create(PointType.Hotel)),
-            };
-
-            return points;
         }
     }
 

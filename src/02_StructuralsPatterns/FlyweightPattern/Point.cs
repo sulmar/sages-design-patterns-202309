@@ -22,6 +22,7 @@ namespace FlyweightPattern
         }
     }
 
+    // Flyweight
     public class PointIcon
     {
         public PointType Type { get; set; }

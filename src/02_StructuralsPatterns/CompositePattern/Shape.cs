@@ -1,9 +1,15 @@
 ﻿namespace CompositePattern;
 
-public class Shape
+// Concrete Component A
+// Leaf
+public class Shape : Component
 {
-    public void Render()
+    public Shape(string name) : base(name)
     {
-        Console.WriteLine("Render shape");
+    }
+
+    public override void Render()
+    {
+        Console.WriteLine($"Render shape {Name}");
     }
 }

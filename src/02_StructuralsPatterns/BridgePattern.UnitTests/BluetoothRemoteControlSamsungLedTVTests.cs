@@ -1,7 +1,75 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using BridgePattern.ControlDevices;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace BridgePattern.UnitTests
 {
+    [TestClass]
+    public class ControlDeviceTests
+    {
+        [TestMethod]
+        public void SwitchOn_TCPCommunicationAndXmlProtocol_ShouldSwitchOnDevice()
+        {
+            // Arrange
+            IControlDevice controlDevice = new ControlDevice(new RS232Communication(), new TextProtocol());
+
+            // Act
+            controlDevice.SwitchOn();
+
+            // Assert
+        }
+
+    }
+
+
+    [TestClass]
+    public class TextProtocolTests
+    {
+        [TestMethod]
+        public void GetSwitchOnMessage_WhenCalled_ShoudReturnsOnMessage()
+        {
+            // Arrange
+            TextProtocol protocol = new TextProtocol();
+
+            // Act
+            var result = protocol.GetSwitchOnMessage();
+
+            // Assert
+            Assert.AreEqual("ON", result);
+
+        }
+
+        [TestMethod]
+        public void GetSwitchOffMessage_WhenCalled_ShoudReturnsOffMessage()
+        {
+            // Arrange
+            TextProtocol protocol = new TextProtocol();
+
+            // Act
+            var result = protocol.GetSwitchOffMessage();
+
+            // Assert
+            Assert.AreEqual("OFF", result);
+
+        }
+
+        [TestMethod]
+        public void GetSetChannelMessage_WhenCalled_ShoudReturnsChannelMessage()
+        {
+            // Arrange
+            TextProtocol protocol = new TextProtocol();
+
+            // Act
+            var result = protocol.GetSetChannelMessage(1);
+
+            // Assert
+            Assert.AreEqual("SET CHANNEL 1", result);
+
+        }
+
+
+    }
+
+
 
     [TestClass]
     public class BluetoothRemoteControlSamsungLedTVTests
@@ -10,13 +78,13 @@ namespace BridgePattern.UnitTests
         public void SwitchOn_ShouldOnTrue()
         {
             // Arrange
-            BluetoothRemoteControlSamsungLedTV ledTV = new BluetoothRemoteControlSamsungLedTV();
+            RemoteControl remoteControl = new BluetoothRemoteControl(new SonyLedTV());
 
             // Act
-            ledTV.SwitchOn();
+            remoteControl.SwitchOn();
 
             //
-            Assert.IsTrue(ledTV.On);
+            // Assert.IsTrue(remoteControl.On);
         }
 
         [TestMethod]

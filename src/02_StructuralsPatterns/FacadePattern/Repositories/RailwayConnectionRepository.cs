@@ -3,7 +3,12 @@ using System;
 
 namespace FacadePattern.Repositories
 {
-    public class RailwayConnectionRepository
+    public interface IRailwayConnectionRepository
+    {
+        RailwayConnection Find(string from, string to, DateTime when);
+    }
+
+    public class PkpRailwayConnectionRepository : IRailwayConnectionRepository
     {
         public RailwayConnection Find(string from, string to, DateTime when)
         {

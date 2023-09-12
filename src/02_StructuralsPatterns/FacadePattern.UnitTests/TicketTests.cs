@@ -18,24 +18,21 @@ namespace FacadePattern.UnitTests
             DateTime when = DateTime.Parse("2022-07-15");
             byte numberOfPlaces = 3;
 
-            RailwayConnectionRepository railwayConnectionRepository = new RailwayConnectionRepository();
+            IRailwayConnectionRepository railwayConnectionRepository = new PkpRailwayConnectionRepository();
             TicketCalculator ticketCalculator = new TicketCalculator();
             ReservationService reservationService = new ReservationService();
             PaymentService paymentService = new PaymentService();
             EmailService emailService = new EmailService();
 
+            TicketService ticketService = new TicketService(railwayConnectionRepository, ticketCalculator, 
+                reservationService, paymentService, emailService);
+
+
+            var parameters = new TicketParameters(from, to, when, numberOfPlaces);
+
             // Act
-            RailwayConnection railwayConnection = railwayConnectionRepository.Find(from, to, when);
-            decimal price = ticketCalculator.Calculate(railwayConnection, numberOfPlaces);
-            Reservation reservation = reservationService.MakeReservation(railwayConnection, numberOfPlaces);
-            Ticket ticket = new Ticket { RailwayConnection = reservation.RailwayConnection, NumberOfPlaces = reservation.NumberOfPlaces, Price = price };
-            Payment payment = paymentService.CreateActivePayment(ticket);
-
-            if (payment.IsPaid)
-            {
-                emailService.Send(ticket);
-            }
-
+            Ticket ticket = ticketService.Buy(parameters);
+           
             // Assert
             Assert.AreEqual("Bydgoszcz", ticket.RailwayConnection.From);
             Assert.AreEqual("Warszawa", ticket.RailwayConnection.To);
@@ -52,7 +49,7 @@ namespace FacadePattern.UnitTests
             DateTime when = DateTime.Parse("2022-07-15");
             byte numberOfPlaces = 3;
 
-            RailwayConnectionRepository railwayConnectionRepository = new RailwayConnectionRepository();
+            IRailwayConnectionRepository railwayConnectionRepository = new PkpRailwayConnectionRepository();
             TicketCalculator ticketCalculator = new TicketCalculator();
             ReservationService reservationService = new ReservationService();
             PaymentService paymentService = new PaymentService();

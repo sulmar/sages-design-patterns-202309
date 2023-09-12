@@ -1,4 +1,6 @@
 ﻿using AbstractFactoryPattern.AbstractFactory.App;
+using AbstractFactoryPattern.AbstractFactory.Bootstrap;
+using AbstractFactoryPattern.AbstractFactory.Material;
 using System;
 
 namespace AbstractFactoryPattern
@@ -10,7 +12,7 @@ namespace AbstractFactoryPattern
             Console.WriteLine("Hello Abstract Factory Method Pattern!");
 
             ContactForm form = new ContactForm();
-            form.Render(Theme.Material);
+            form.Render(new MaterialWidgetFactory());
 
         }
     }

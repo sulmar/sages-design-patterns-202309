@@ -10,17 +10,10 @@ namespace AbstractFactoryPattern.AbstractFactory.App
 {
     public class ContactForm
     {
-        public void Render(Theme theme)
+        public void Render(IWidgetFactory factory)
         {
-            if (theme == Theme.Material) {
-                new MaterialTextBox().Render();
-                new MaterialButton().Render();
-            }
-            else if (theme == Theme.Bootstrap)
-            {
-                new BootstrapTextBox().Render();
-                new BootstrapButton().Render();
-            }
+            factory.CreateTextBox().Render();
+            factory.CreateButton().Render();
         }
     }
 

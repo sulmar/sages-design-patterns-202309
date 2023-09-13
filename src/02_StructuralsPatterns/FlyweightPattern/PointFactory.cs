@@ -8,7 +8,7 @@ namespace FlyweightPattern
 
         public PointService(PointIconFactory iconFactory)
         {
-            var points = new List<Point>
+            this.points = new List<Point>
             {
                 new Point(1, 2, iconFactory.Create(PointType.Coffee)),
                 new Point(10, 20, iconFactory.Create(PointType.Coffee)),

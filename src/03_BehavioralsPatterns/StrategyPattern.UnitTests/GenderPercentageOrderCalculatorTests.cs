@@ -6,12 +6,12 @@ namespace StrategyPattern.UnitTests
     [TestClass]
     public class GenderPercentageOrderCalculatorTests
     {
-        private GenderPercentageOrderCalculator calculator;
+        private OrderCalculator calculator;
 
         [TestInitialize]
         public void Init()
         {
-            calculator = new GenderPercentageOrderCalculator(Gender.Female, 0.1m);
+            calculator = new OrderCalculator(new GenderPercentageDiscountStrategy(Gender.Female, 0.1m));
         }
 
         [TestMethod]

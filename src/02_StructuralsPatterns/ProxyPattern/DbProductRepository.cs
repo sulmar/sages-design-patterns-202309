@@ -24,7 +24,7 @@ namespace ProxyPattern
             };
         }
 
-        public Product Get(int id)
+        public virtual Product Get(int id)
         {
             if (products.TryGetValue(id, out Product product))
             {

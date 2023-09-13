@@ -2,10 +2,12 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Reflection.Metadata;
 
 namespace ProxyPattern
 {
-    // Pośrednik (Proxy)
+
+    // Pośrednik (Proxy) - wariant obiektowy
     public class CacheProductRepository : IProductRepository
     {
         private IDictionary<int, Product> products;

@@ -2,30 +2,16 @@
 {
     public class ProductsController
     {
-        private readonly DbProductRepository productRepository;
-        private readonly CacheProductRepository cacheProductRepository;
+        private readonly IProductRepository productRepository;       
 
-        public ProductsController(
-            DbProductRepository productRepository, 
-            CacheProductRepository cacheProductRepository)
+        public ProductsController(IProductRepository productRepository)
         {
-            this.productRepository = productRepository;
-            this.cacheProductRepository = cacheProductRepository;
+            this.productRepository = productRepository;            
         }
 
         public Product Get(int id)
         {
-            Product product = cacheProductRepository.Get(id);
-
-            if (product == null)
-            {
-                product = productRepository.Get(id);
-
-                if (product != null)
-                {
-                    cacheProductRepository.Add(product);
-                }
-            }
+            Product product = productRepository.Get(id);
 
             return product;
         }

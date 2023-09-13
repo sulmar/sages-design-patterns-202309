@@ -87,10 +87,10 @@ namespace StatePattern.UnitTests
             Order order = new Order(OrderStatus.Shipping);
 
             // Act
-            var act = () => order.Cancel();
+            order.Cancel();
 
             // Assert
-            act.Should().Throw<InvalidOperationException>();
+            order.Status.Should().Be(OrderStatus.Shipping);
         }
 
         [Fact]

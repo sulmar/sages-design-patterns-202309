@@ -2,34 +2,36 @@
 
 namespace TemplateMethodPattern
 {
+
+
     // Happy Hours - 10% upustu w godzinach od 9 do 15
-    public class HappyHoursPercentageOrderCalculator
+    public class HappyHoursPercentageOrderCalculator : PercentageOrderCalculator
     {
         private readonly TimeSpan from;
         private readonly TimeSpan to;
 
-        private readonly decimal percentage;
-
         public HappyHoursPercentageOrderCalculator(TimeSpan from, TimeSpan to, decimal percentage)
+                : base(percentage)
         {
             this.from = from;
             this.to = to;
-            this.percentage = percentage;            
         }
 
-        public decimal CalculateDiscount(Order order)
-        {
-            if (order.OrderDate.TimeOfDay >= from && order.OrderDate.TimeOfDay < to)
-            {
-                return order.Amount * percentage;
-            }
-            else
-                return 0;
-        }
+        public override bool CanDiscount(Order order) => order.OrderDate.TimeOfDay >= from && order.OrderDate.TimeOfDay < to;
+        
     }
 
+    public class HappyHoursFixedOrderCalculator : FixedOrderCalculator
+    {
+        private readonly TimeSpan from;
+        private readonly TimeSpan to;
 
+        public HappyHoursFixedOrderCalculator(TimeSpan from, TimeSpan to, decimal amount) : base(amount)
+        {
+            this.from = from;
+            this.to = to;
+        }
 
-    
-
+        public override bool CanDiscount(Order order) => order.OrderDate.TimeOfDay >= from && order.OrderDate.TimeOfDay < to;
+    }
 }

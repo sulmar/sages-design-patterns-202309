@@ -12,6 +12,18 @@ namespace StatePattern.LightSwitchStates
         {
             Console.WriteLine("wyłącz przekaźnik");
 
+            lightSwitch.SetState(new Blinking(lightSwitch));
+        }
+    }
+
+    public class Blinking : LightSwitchState
+    {
+        public Blinking(LightSwitch lightSwitch) : base(lightSwitch)
+        {
+        }
+
+        public override void Push()
+        {
             lightSwitch.SetState(new Off(lightSwitch));
         }
     }

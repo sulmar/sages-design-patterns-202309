@@ -6,7 +6,7 @@ namespace StatePattern
     // Context
     public class LightSwitch
     {
-        public LightSwitchState State { get; private set; }
+        public LightSwitchState State { get; private set; }        
 
         public LightSwitch()
         {

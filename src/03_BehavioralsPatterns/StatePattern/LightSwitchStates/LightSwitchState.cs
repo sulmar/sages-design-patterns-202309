@@ -17,5 +17,6 @@ namespace StatePattern.LightSwitchStates
 
         // Handle
         public abstract void Push();
+        
     }
 }

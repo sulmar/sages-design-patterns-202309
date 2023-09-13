@@ -46,7 +46,7 @@ namespace StatePattern.UnitTests
             lightSwitch.Push();
 
             // Assert
-            Assert.IsInstanceOfType(lightSwitch.State, typeof(Off));
+            Assert.IsInstanceOfType(lightSwitch.State, typeof(Blinking));
         }
 
         [TestMethod]
@@ -62,7 +62,7 @@ namespace StatePattern.UnitTests
             lightSwitch.Push();
 
             // Assert
-            Assert.IsInstanceOfType(lightSwitch.State, typeof(On));
+            Assert.IsInstanceOfType(lightSwitch.State, typeof(Off));
         }
 
     }

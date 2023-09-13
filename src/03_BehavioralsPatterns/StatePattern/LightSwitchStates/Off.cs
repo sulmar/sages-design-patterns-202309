@@ -14,5 +14,6 @@ namespace StatePattern.LightSwitchStates
 
             lightSwitch.SetState(new On(lightSwitch));
         }
+        
     }
 }

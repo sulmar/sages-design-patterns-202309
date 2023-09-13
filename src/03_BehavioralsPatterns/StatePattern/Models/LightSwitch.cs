@@ -1,40 +1,26 @@
-﻿using System;
+﻿using StatePattern.LightSwitchStates;
+using System;
 
 namespace StatePattern
 {
+    // Context
     public class LightSwitch
     {
-        public LightSwitchState State { get; set; }
+        public LightSwitchState State { get; private set; }
 
         public LightSwitch()
         {
-            State = LightSwitchState.Off;
+            SetState(new Off(this));   // Initial State
         }
 
-        public void Push()
+        public void SetState(LightSwitchState state)
         {
-            if (State == LightSwitchState.Off)
-            {
-                Console.WriteLine("załącz przekaźnik");
-
-                State = LightSwitchState.On;
-                return;
-            }
-
-            if (State == LightSwitchState.On)
-            {
-                Console.WriteLine("wyłącz przekaźnik");
-
-                State = LightSwitchState.Off;
-                return;
-            }
+            this.State = state;
         }
+
+        public void Push() => State.Push();
     }
 
-    public enum LightSwitchState
-    {
-        On,
-        Off
-    }
+    
 
 }

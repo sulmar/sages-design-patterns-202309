@@ -42,6 +42,7 @@ namespace StatePattern
             }
             else if (Status == OrderStatus.Delivered)
             {
+                Console.WriteLine("Sent email");
                 Status = OrderStatus.Completed;
             }
             else

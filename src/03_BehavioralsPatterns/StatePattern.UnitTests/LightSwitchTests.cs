@@ -1,4 +1,5 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using StatePattern.LightSwitchStates;
 using System;
 
 namespace StatePattern.UnitTests
@@ -16,7 +17,7 @@ namespace StatePattern.UnitTests
             LightSwitch lightSwitch = new LightSwitch();
 
             // Assert
-            Assert.AreEqual(LightSwitchState.Off, lightSwitch.State);
+            Assert.IsInstanceOfType(lightSwitch.State, typeof(Off));
 
         }
 
@@ -30,7 +31,7 @@ namespace StatePattern.UnitTests
             lightSwitch.Push();
 
             // Assert
-            Assert.AreEqual(LightSwitchState.On, lightSwitch.State);
+            Assert.IsInstanceOfType(lightSwitch.State, typeof(On));            
         }
 
         [TestMethod]
@@ -45,7 +46,23 @@ namespace StatePattern.UnitTests
             lightSwitch.Push();
 
             // Assert
-            Assert.AreEqual(LightSwitchState.Off, lightSwitch.State);
+            Assert.IsInstanceOfType(lightSwitch.State, typeof(Off));
+        }
+
+        [TestMethod]
+        public void PushDown_Three_ShouldStateIsOn()
+        {
+
+            // Arrange
+            LightSwitch lightSwitch = new LightSwitch();
+
+            // Act
+            lightSwitch.Push();
+            lightSwitch.Push();
+            lightSwitch.Push();
+
+            // Assert
+            Assert.IsInstanceOfType(lightSwitch.State, typeof(On));
         }
 
     }

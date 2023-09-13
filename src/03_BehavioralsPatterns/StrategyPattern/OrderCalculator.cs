@@ -1,22 +1,28 @@
 ﻿namespace StrategyPattern
 {
+
+  
     public class OrderCalculator
     {
-        private IDiscountStrategy discountStrategy;
+        private ICanDiscountStrategy canDiscountStategy;
+        private ICalculateDiscountStrategy calculateDiscountStrategy;
 
-        public OrderCalculator(IDiscountStrategy discountStrategy)
+        public OrderCalculator(
+            ICanDiscountStrategy canDiscountStategy, 
+            ICalculateDiscountStrategy calculateDiscountStrategy)
         {
-            this.discountStrategy = discountStrategy;
+            this.canDiscountStategy = canDiscountStategy;
+            this.calculateDiscountStrategy = calculateDiscountStrategy;
         }
 
         public decimal CalculateDiscount(Order order)
         {
-            if (discountStrategy.CanDiscount(order))                // Warunek (Predicate)
+            if (canDiscountStategy.CanDiscount(order))                // Warunek (Predicate)
             {
-                return discountStrategy.GetDiscount(order);         // GetDiscount
+                return calculateDiscountStrategy.GetDiscount(order);         // GetDiscount
             }
             else
-                return discountStrategy.NoDiscount();               // NoDiscount
+                return calculateDiscountStrategy.NoDiscount();               // NoDiscount
         }
     }
 }

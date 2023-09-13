@@ -11,7 +11,10 @@ namespace StrategyPattern.UnitTests
         [TestInitialize]
         public void Init()
         {
-            calculator = new OrderCalculator(new GenderPercentageDiscountStrategy(Gender.Female, 0.1m));
+            ICanDiscountStrategy canDiscountStategy = new GenderCanDiscountStrategy(Gender.Female);
+            ICalculateDiscountStrategy calculateDiscount = new PercentageDiscountStrategy(0.1m);
+
+            calculator = new OrderCalculator(canDiscountStategy, calculateDiscount);
         }
 
         [TestMethod]

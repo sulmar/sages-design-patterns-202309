@@ -1,8 +1,7 @@
 ﻿namespace StrategyPattern
 {
-    public interface IDiscountStrategy
+    public interface ICalculateDiscountStrategy
     {
-        bool CanDiscount(Order order);
         decimal GetDiscount(Order order);
         decimal NoDiscount();
     }

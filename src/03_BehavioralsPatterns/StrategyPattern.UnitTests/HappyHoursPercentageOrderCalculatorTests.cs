@@ -18,7 +18,10 @@ namespace StrategyPattern.UnitTests
             var from = TimeSpan.Parse("09:00");
             var to = TimeSpan.Parse("15:00");
 
-            calculator = new OrderCalculator(new HappyHoursPercentageDiscountStrategy(from , to, 0.1m));
+            ICanDiscountStrategy canDiscountStategy = new HappyHoursCanDiscountStrategy(from, to);
+            ICalculateDiscountStrategy calculateDiscount = new PercentageDiscountStrategy(0.1m);
+
+            calculator = new OrderCalculator(canDiscountStategy, calculateDiscount);
         }
 
         [TestMethod]

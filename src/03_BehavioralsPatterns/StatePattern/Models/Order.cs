@@ -41,7 +41,12 @@ namespace StatePattern
             {
                 Console.WriteLine($"[{transition.Trigger}] {transition.Source} -> {transition.Destination}");
             });
-            
+
+            // Wizualizacja
+            // http://www.webgraphviz.com/
+            // https://quickchart.io/documentation/graphviz-api/
+
+
         }
 
         public string Graph => Stateless.Graph.UmlDotGraph.Format(machine.GetInfo());

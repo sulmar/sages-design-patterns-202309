@@ -23,7 +23,9 @@ namespace StatePattern
             machine.Configure(OrderStatus.Placement)
                 .PermitIf(OrderTrigger.Confirm, OrderStatus.Picking, () => IsPaid)
                 .Permit(OrderTrigger.Cancel, OrderStatus.Canceled)
-                .OnEntry(() => Console.WriteLine("Sent welcome email"), "Send welcome message")
+                .OnEntry(() => Console.WriteLine("Sent welcome by email"), "Send welcome message")
+                .OnEntry(() => Console.WriteLine("Sent welcome by messanger"), "Send welcome message")
+                .OnEntry(() => Console.WriteLine("Sent welcome by instagram"), "Send welcome message")
                 .OnExit(() => Console.WriteLine("In progress"), "Send in progress message");
 
             machine.Configure(OrderStatus.Picking)
@@ -45,6 +47,7 @@ namespace StatePattern
             // Wizualizacja
             // http://www.webgraphviz.com/
             // https://quickchart.io/documentation/graphviz-api/
+            // https://github.com/sulmar/stateless-mermaid
 
 
         }

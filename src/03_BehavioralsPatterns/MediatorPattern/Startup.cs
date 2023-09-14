@@ -30,6 +30,10 @@ namespace MediatorPattern
             services.AddSingleton<ICustomerRepository, FakeCustomerRepository>();
             services.AddSingleton<IMessageService, EmailMessageService>();
 
+            // dotnet add package MediatR.Extensions.Microsoft.DependencyInjection
+
+            services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblyContaining<Startup>());
+
             services.AddControllers();
         }
 

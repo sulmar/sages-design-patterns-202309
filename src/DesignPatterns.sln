@@ -91,7 +91,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SimpleFactoryPattern", "01_
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FlyweightPattern", "03_BehavioralsPatterns\FlyweightPattern\FlyweightPattern.csproj", "{04807C43-A27A-4462-8CA9-72FE18985B9E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleFactoryPattern.UnitTests", "01_CreationalsPatterns\SimpleFactoryPattern.UnitTests\SimpleFactoryPattern.UnitTests.csproj", "{8DB87117-A1AE-4FFE-AFDC-CD0E812F3F6D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SimpleFactoryPattern.UnitTests", "01_CreationalsPatterns\SimpleFactoryPattern.UnitTests\SimpleFactoryPattern.UnitTests.csproj", "{8DB87117-A1AE-4FFE-AFDC-CD0E812F3F6D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -39,9 +39,15 @@ namespace MediatorPattern.Controllers
 
         // GET https://localhost:5001/api/customers/1 HTTP/1.1
         [HttpGet("{id}")]
-        public async Task< ActionResult<Customer>> Get(int id)
+        public async Task<ActionResult<Customer>> Get(int id)
         {
             var customer = await mediator.Send(new GetCustomerById(id));
+
+            if (customer == null)
+            {
+                return NotFound();
+            }
+
             return Ok(customer);
         }
 

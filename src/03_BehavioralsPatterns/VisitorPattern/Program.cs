@@ -3,15 +3,21 @@ using System.Collections.ObjectModel;
 
 namespace VisitorPattern
 {
+    // Hierarchical Visitor Pattern
+    // https://wiki.c2.com/?HierarchicalVisitorPattern
     class Program
     {
         static void Main(string[] args)
         {
             Console.WriteLine("Hello Visitor Pattern!");
 
+            IVisitor visitor = new HtmlVisitor();
+
             Form form = Get();
 
-            string html = form.GetHtml();
+            form.Accept(visitor);
+
+            string html = visitor.Output;
 
             System.IO.File.WriteAllText("index.html", html);
         }
@@ -25,11 +31,11 @@ namespace VisitorPattern
 
                 Body = new Collection<Control>
                 {
-
-                    new Control { Type = ControlType.Label, Caption = "Person", Name = "lblName" },
-                    new Control { Type = ControlType.TextBox, Caption = "FirstName", Name = "txtFirstName", Value = "John"},
-                    new Control { Type = ControlType.Checkbox, Caption = "IsAdult", Name = "chkIsAdult", Value = "true" },
-                    new Control {  Type = ControlType.Button, Caption = "Submit", Name = "btnSubmit", ImageSource = "save.png" },
+                    new Label { Caption = "Person", Name = "lblName" },
+                    new BlinkLabel { Caption = "Person", Name = "lblName2" },
+                    new TextBox { Caption = "FirstName", Name = "txtFirstName", Value = "John"},
+                    new Checkbox { Caption = "IsAdult", Name = "chkIsAdult", Value = true },
+                    new Button { Caption = "Submit", Name = "btnSubmit", ImageSource = "save.png" },
                 }
 
             };

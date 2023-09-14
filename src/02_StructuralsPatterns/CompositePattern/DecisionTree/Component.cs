@@ -1,11 +1,31 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.Contracts;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace CompositePattern.DecisionTree
 {
+    public interface IVisitor
+    {
+        void Visit(Question question);
+        void Visit(Decision decision);
+    }
+
+    public class TextVisitor : IVisitor
+    {
+        public void Visit(Question question)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Visit(Decision decision)
+        {
+            throw new NotImplementedException();
+        }
+    }
+
     // Abstract Component
     public abstract class Node
     {
@@ -17,6 +37,9 @@ namespace CompositePattern.DecisionTree
         }
 
         public abstract void Operation();
+
+        public abstract void Accept(IVisitor visitor);
+        
     }
 
     // Concrete Component
@@ -46,6 +69,11 @@ namespace CompositePattern.DecisionTree
             }
         }
 
+        public override void Accept(IVisitor visitor)
+        {
+            visitor.Visit(this);
+        }
+
         public static bool Response => Console.ReadKey().Key == ConsoleKey.Y;
     }
 
@@ -54,6 +82,11 @@ namespace CompositePattern.DecisionTree
     {
         public Decision(string content) : base(content)
         {
+        }
+
+        public override void Accept(IVisitor visitor)
+        {
+            visitor.Visit(this);
         }
 
         public override void Operation()

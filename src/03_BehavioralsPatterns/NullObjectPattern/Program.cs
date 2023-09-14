@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 
 namespace NullObjectPattern
 {
@@ -10,38 +11,57 @@ namespace NullObjectPattern
 
             IProductRepository productRepository = new FakeProductRepository();
 
-            Product product = productRepository.Get(1);
+            ProductBase product = productRepository.Get(1);
 
-            // Problem: Zawsze musimy sprawdzać czy obiekt nie jest pusty (null).
+            product.RateId(3);
 
-            if (product != null)
-            {
-                product.RateId(3);
-            }
         }
     }
 
     public interface IProductRepository
     {
-        Product Get(int id);
+        ProductBase Get(int id);
     }
 
     public class FakeProductRepository : IProductRepository
     {
-        public Product Get(int id)
+        public ProductBase Get(int id)
         {
-            return null;
+            if (id > 100)
+            {
+                return new NullProduct();
+            }
+            else
+                return new Product();
         }
     }
 
-    public class Product
-    {
-        private int rate;
 
-        public void RateId(int rate)
+  
+    // Abstract Object
+    public abstract class ProductBase 
+    {
+        protected int rate;
+
+        public abstract void RateId(int rate);
+
+    }
+
+    // Real Object
+    public class Product : ProductBase
+    {
+        public override void RateId(int rate)
         {
             this.rate = rate;
         }
+    }
 
+    // Null Object
+    public class NullProduct : ProductBase
+    {
+        public override void RateId(int rate)
+        {
+            // nic nie rób
+        }
     }
 }

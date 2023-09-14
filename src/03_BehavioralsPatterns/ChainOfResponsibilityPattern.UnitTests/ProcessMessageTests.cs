@@ -4,6 +4,7 @@ using System;
 
 namespace ChainOfResponsibilityPattern.UnitTests.UnitTests
 {
+
     [TestClass]
     public class ProcessMessageTests
     {

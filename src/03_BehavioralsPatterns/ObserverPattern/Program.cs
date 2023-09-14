@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Reactive.Linq;
 using System.Threading;
 
 namespace ObserverPattern
@@ -13,9 +14,11 @@ namespace ObserverPattern
 
             // Covid19Test();
 
-            //   CpuTest();
+               CpuTest();
 
-            WheaterForecastTest();
+            Console.ReadLine();
+
+          //  WheaterForecastTest();
         }
 
         private static void WheaterForecastTest()
@@ -101,32 +104,56 @@ namespace ObserverPattern
         #region CPU
         private static void CpuTest()
         {
+            // RX-Library
+            // System.Reactive
+
+            // Reactive Programming
+
             var cpuCounter = new PerformanceCounter("Processor", "% Processor Time", "_Total");
 
-            while (true)
-            {
-                float cpu = cpuCounter.NextValue();
+            IObservable<float> source = Observable.Interval(TimeSpan.FromSeconds(1))
+                .Select(cpu => cpuCounter.NextValue());
 
-                if (cpu < 30)
+            source.Where(cpu => cpu < 1)
+                .Subscribe(cpu =>
                 {
                     Console.BackgroundColor = ConsoleColor.Green;
                     Console.WriteLine($"CPU {cpu} %");
                     Console.ResetColor();
-                }
-                else
-                if (cpu > 50)
+                });
+
+            source.Where(cpu => cpu > 3)
+                .Subscribe(cpu =>
                 {
                     Console.BackgroundColor = ConsoleColor.Red;
                     Console.WriteLine($"CPU {cpu} %");
                     Console.ResetColor();
-                }
-                else
-                {
-                    Console.WriteLine($"CPU {cpu} %");
-                }
+                });
 
-                Thread.Sleep(TimeSpan.FromSeconds(1));
-            }
+
+
+            //while (true)
+            //{
+            //    float cpu = cpuCounter.NextValue();
+
+            //    if (cpu < 1)
+            //    {
+                  
+            //    }
+            //    else
+            //    if (cpu > 3)
+            //    {
+            //        Console.BackgroundColor = ConsoleColor.Red;
+            //        Console.WriteLine($"CPU {cpu} %");
+            //        Console.ResetColor();
+            //    }
+            //    else
+            //    {
+            //        Console.WriteLine($"CPU {cpu} %");
+            //    }
+
+            //    Thread.Sleep(TimeSpan.FromSeconds(1));
+            //}
         }
 
         #endregion

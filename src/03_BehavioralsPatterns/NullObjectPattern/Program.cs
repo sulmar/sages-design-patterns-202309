@@ -29,7 +29,7 @@ namespace NullObjectPattern
         {
             if (id > 100)
             {
-                return new NullProduct();
+                return Product.NullObject;
             }
             else
                 return new Product();
@@ -54,6 +54,8 @@ namespace NullObjectPattern
         {
             this.rate = rate;
         }
+
+        public static ProductBase NullObject => new NullProduct();
     }
 
     // Null Object

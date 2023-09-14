@@ -14,14 +14,14 @@ namespace ChainOfResponsibilityPattern.Handlers
             this.whiteList = whiteList;
         }
 
-        public override void Handle(Message message)
+        public override void Handle(MessageContext context)
         {
-            if (!whiteList.Contains(message.From))
+            if (!whiteList.Contains(context.Message.From))
             {
                 throw new Exception();
             }
 
-            base.Handle(message);
+            base.Handle(context);
         }
     }
 }

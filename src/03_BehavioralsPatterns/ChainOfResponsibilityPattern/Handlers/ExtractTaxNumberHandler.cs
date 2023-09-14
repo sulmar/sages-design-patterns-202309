@@ -4,32 +4,6 @@ using System.Text.RegularExpressions;
 
 namespace ChainOfResponsibilityPattern.Handlers
 {
-    public class ConsoleExceptionHandler : MessageHandler
-    {
-        public override void Handle(Message message)
-        {
-            try
-            {
-                base.Handle(message);
-            }
-
-            catch(Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-
-                throw;
-            }
-        }
-    }
-
-
-    public class UnderConstrucionHandler : MessageHandler
-    {
-        public override void Handle(Message message)
-        {
-            
-        }
-    }
 
     public class ExtractTaxNumberHandler : MessageHandler
     {
@@ -41,18 +15,18 @@ namespace ChainOfResponsibilityPattern.Handlers
             regex = new Regex(pattern);
         }
 
-        public override void Handle(Message message)
+        public override void Handle(MessageContext context)
         {
-            Match match = regex.Match(message.Body);
+            Match match = regex.Match(context.Message.Body);
 
             if (!match.Success)
                 throw new FormatException();
 
             string taxNumber = match.Value;
 
-            // TODO: return tax number
+            context.TaxNumber = taxNumber;
 
-            base.Handle(message);
+            base.Handle(context);
         }
     }
 }

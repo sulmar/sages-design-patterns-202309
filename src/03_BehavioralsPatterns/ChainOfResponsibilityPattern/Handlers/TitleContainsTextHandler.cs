@@ -12,14 +12,14 @@ namespace ChainOfResponsibilityPattern.Handlers
             this.text = text;
         }
 
-        public override void Handle(Message message)
+        public override void Handle(MessageContext context)
         {
-            if (!message.Title.Contains(text))
+            if (!context.Message.Title.Contains(text))
             {
                 throw new Exception();
             }
 
-            base.Handle(message);
+            base.Handle(context);
         }
     }
 }

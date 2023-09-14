@@ -5,6 +5,7 @@ using System.Text.RegularExpressions;
 
 namespace ChainOfResponsibilityPattern.Models
 {
+
     public class MessageProcessor
     {
         private string[] whiteList;
@@ -22,11 +23,11 @@ namespace ChainOfResponsibilityPattern.Models
             MessageHandler underConstruction = new UnderConstrucionHandler();
             MessageHandler exceptionHandler = new ConsoleExceptionHandler();
 
-            exceptionHandler.SetNextHandler(whiteListHandler)
-                .SetNextHandler(titleHandler)
+            exceptionHandler.SetNext(whiteListHandler)
+                .SetNext(titleHandler)
                     // .SetNextHandler(underConstruction)
-                        .SetNextHandler(taxNumberHandler)
-                            .SetNextHandler(taxNumberHandler);
+                        .SetNext(taxNumberHandler)
+                            .SetNext(taxNumberHandler);
 
             messageHandler = exceptionHandler;
 
@@ -34,7 +35,9 @@ namespace ChainOfResponsibilityPattern.Models
 
         public string Process(Message message)
         {
-            messageHandler.Handle(message);
+            MessageContext context = new MessageContext(message);
+
+            messageHandler.Handle(context);
 
             var taxNumber = "";
 

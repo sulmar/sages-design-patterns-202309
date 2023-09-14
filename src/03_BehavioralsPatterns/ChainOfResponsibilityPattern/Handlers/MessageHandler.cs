@@ -1,26 +1,22 @@
 ﻿using ChainOfResponsibilityPattern.Models;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ChainOfResponsibilityPattern.Handlers
 {
-    // Abstract Handler
-    public abstract class MessageHandler
-    {
-        protected MessageHandler next;
 
-        public MessageHandler SetNextHandler(MessageHandler next)
+
+    // Abstract Base Handler
+    public abstract class MessageHandler : IMessageHandler
+    {
+        protected IMessageHandler next;
+
+        public IMessageHandler SetNext(IMessageHandler next)
         {
             return this.next = next;
         }
 
-        public virtual void Handle(Message message)
+        public virtual void Handle(MessageContext context)
         {
-            if (next != null)
-            {
-                next.Handle(message);
-            }
+            next?.Handle(context);
         }
     }
 }

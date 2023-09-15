@@ -31,20 +31,28 @@ namespace VisitorPattern
 
         public void Visit(Form control)
         {
-            builder.AppendLine("<html>");
-            builder.AppendLine($"<title>{control.Title}</title>");
-            builder.AppendLine("<body>");
+            AppendBeginDocument(control);
 
             foreach (Control child in control.Body)
             {
                 child.Accept(this);
             }
 
+            AppendEndDocument();
+
+        }
+
+        private void AppendBeginDocument(Form control)
+        {
+            builder.AppendLine("<html>");
+            builder.AppendLine($"<title>{control.Title}</title>");
+            builder.AppendLine("<body>");
+        }
+
+        private void AppendEndDocument()
+        {
             builder.AppendLine("</body>");
             builder.AppendLine("</html>");
-
-
-
         }
 
         public void Visit(BlinkLabel control)
